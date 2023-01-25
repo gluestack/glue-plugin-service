@@ -2,7 +2,11 @@ const { DockerodeHelper } = require("@gluestack/helpers");
 
 import { PluginInstance } from "./PluginInstance";
 import IApp from "@gluestack/framework/types/app/interface/IApp";
-import IContainerController from "@gluestack/framework/types/plugin/interface/IContainerController";
+import IContainerController, { IRoutes } from "@gluestack/framework/types/plugin/interface/IContainerController";
+import { readdir } from 'node:fs/promises';
+import { join } from 'node:path'
+import { fileExists } from "./helpers/file-exists";
+import { Dirent } from "node:fs";
 
 export class PluginInstanceContainerController implements IContainerController {
   app: IApp;
@@ -86,7 +90,7 @@ export class PluginInstanceContainerController implements IContainerController {
     //
   }
 
-  getConfig(): any {}
+  getConfig(): any { }
 
   async up() {
     //
@@ -98,5 +102,49 @@ export class PluginInstanceContainerController implements IContainerController {
 
   async build() {
     //
+  }
+
+  async getRoutes(): Promise<IRoutes[]> {
+    const routes: IRoutes[] = [];
+
+    const path: string = join(
+      process.cwd(),
+      await this.callerInstance.getInstallationPath()
+    );
+
+    const functionsPath: string = join(path, 'functions');
+    if (!await fileExists(functionsPath)) {
+      return routes;
+    }
+
+    const dirents: Dirent[] = await readdir(functionsPath, {
+      withFileTypes: true
+    });
+
+    for await (const dirent of dirents) {
+      if (dirent.isDirectory()) {
+        routes.push({
+          method: "POST",
+          path: dirent.name
+        });
+
+        routes.push({
+          method: "GET",
+          path: dirent.name
+        });
+
+        routes.push({
+          method: "PUT",
+          path: dirent.name
+        });
+
+        routes.push({
+          method: "DELETE",
+          path: dirent.name
+        });
+      }
+    }
+
+    return Promise.resolve(routes);
   }
 }

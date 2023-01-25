@@ -35,9 +35,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __asyncValues = (this && this.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
 exports.__esModule = true;
 exports.PluginInstanceContainerController = void 0;
 var DockerodeHelper = require("@gluestack/helpers").DockerodeHelper;
+var promises_1 = require("node:fs/promises");
+var node_path_1 = require("node:path");
+var file_exists_1 = require("./helpers/file-exists");
 var PluginInstanceContainerController = (function () {
     function PluginInstanceContainerController(app, callerInstance) {
         this.status = "down";
@@ -129,6 +139,88 @@ var PluginInstanceContainerController = (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
                 return [2];
+            });
+        });
+    };
+    PluginInstanceContainerController.prototype.getRoutes = function () {
+        var _a, e_1, _b, _c;
+        return __awaiter(this, void 0, void 0, function () {
+            var routes, path, _d, _e, functionsPath, dirents, _f, dirents_1, dirents_1_1, dirent, e_1_1;
+            return __generator(this, function (_g) {
+                switch (_g.label) {
+                    case 0:
+                        routes = [];
+                        _d = node_path_1.join;
+                        _e = [process.cwd()];
+                        return [4, this.callerInstance.getInstallationPath()];
+                    case 1:
+                        path = _d.apply(void 0, _e.concat([_g.sent()]));
+                        functionsPath = (0, node_path_1.join)(path, 'functions');
+                        return [4, (0, file_exists_1.fileExists)(functionsPath)];
+                    case 2:
+                        if (!(_g.sent())) {
+                            return [2, routes];
+                        }
+                        return [4, (0, promises_1.readdir)(functionsPath, {
+                                withFileTypes: true
+                            })];
+                    case 3:
+                        dirents = _g.sent();
+                        _g.label = 4;
+                    case 4:
+                        _g.trys.push([4, 9, 10, 15]);
+                        _f = true, dirents_1 = __asyncValues(dirents);
+                        _g.label = 5;
+                    case 5: return [4, dirents_1.next()];
+                    case 6:
+                        if (!(dirents_1_1 = _g.sent(), _a = dirents_1_1.done, !_a)) return [3, 8];
+                        _c = dirents_1_1.value;
+                        _f = false;
+                        try {
+                            dirent = _c;
+                            if (dirent.isDirectory()) {
+                                routes.push({
+                                    method: "POST",
+                                    path: dirent.name
+                                });
+                                routes.push({
+                                    method: "GET",
+                                    path: dirent.name
+                                });
+                                routes.push({
+                                    method: "PUT",
+                                    path: dirent.name
+                                });
+                                routes.push({
+                                    method: "DELETE",
+                                    path: dirent.name
+                                });
+                            }
+                        }
+                        finally {
+                            _f = true;
+                        }
+                        _g.label = 7;
+                    case 7: return [3, 5];
+                    case 8: return [3, 15];
+                    case 9:
+                        e_1_1 = _g.sent();
+                        e_1 = { error: e_1_1 };
+                        return [3, 15];
+                    case 10:
+                        _g.trys.push([10, , 13, 14]);
+                        if (!(!_f && !_a && (_b = dirents_1["return"]))) return [3, 12];
+                        return [4, _b.call(dirents_1)];
+                    case 11:
+                        _g.sent();
+                        _g.label = 12;
+                    case 12: return [3, 14];
+                    case 13:
+                        if (e_1) throw e_1.error;
+                        return [7];
+                    case 14: return [7];
+                    case 15: return [2, Promise.resolve(routes)];
+                }
             });
         });
     };
