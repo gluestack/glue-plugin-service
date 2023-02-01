@@ -1,4 +1,4 @@
-const { DockerodeHelper } = require("@gluestack/helpers");
+const { SpawnHelper, DockerodeHelper } = require("@gluestack/helpers");
 
 import { PluginInstance } from "./PluginInstance";
 import IApp from "@gluestack/framework/types/app/interface/IApp";
@@ -31,6 +31,10 @@ export class PluginInstanceContainerController implements IContainerController {
 
   installScript() {
     return ["npm", "install"];
+  }
+
+  buildScript() {
+    return ["npm", "run", "build"];
   }
 
   runScript() {
@@ -101,7 +105,8 @@ export class PluginInstanceContainerController implements IContainerController {
   }
 
   async build() {
-    //
+    await SpawnHelper.run(this.callerInstance.getInstallationPath(), this.installScript());
+    await SpawnHelper.run(this.callerInstance.getInstallationPath(), this.buildScript());
   }
 
   async getRoutes(): Promise<IRoutes[]> {
