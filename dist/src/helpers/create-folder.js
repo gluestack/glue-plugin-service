@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.createFolder = void 0;
 var promises_1 = require("node:fs/promises");
-var createFolder = function (path) { return __awaiter(void 0, void 0, void 0, function () {
+var createFolder = function (path) { return __awaiter(void 0, void 0, Promise, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4, (0, promises_1.mkdir)(path, { recursive: true })];

@@ -155,7 +155,7 @@ var PluginInstanceContainerController = (function () {
     };
     PluginInstanceContainerController.prototype.getRoutes = function () {
         var _a, e_1, _b, _c;
-        return __awaiter(this, void 0, void 0, function () {
+        return __awaiter(this, void 0, Promise, function () {
             var routes, path, _d, _e, functionsPath, dirents, _f, dirents_1, dirents_1_1, dirent, e_1_1;
             return __generator(this, function (_g) {
                 switch (_g.label) {
