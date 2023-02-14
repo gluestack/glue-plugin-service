@@ -1,0 +1,164 @@
+---
+title: How It Works | Service Node
+description: How It Works | Service Node
+---
+
+<Meta title="Service Node Plugin Docs/How it Works" />
+
+# How It Works
+
+##
+
+<br/>
+
+* ## Working
+  
+  <br/>
+  
+  * **Service-Node** plugin will help you in creating microservices written in **node.js**
+  
+  
+  <br/>
+  
+  
+  * Every service you create via **service-node** will be running with a **Dapr Sidecar** which is managed by your **Backend-Engine** plugin.
+  
+  
+  <br/>
+  
+  
+  * Inside every service you have created, you can attach your own **functions** and **graphql actions**.
+  
+  <br/>
+  
+  * Your **Backend-Engine** plugin will treat every service as a seperate independent microservice. Behind the scene it will handle everything. Like providing you baseurl to interact with your service.
+  
+  <br/>
+
+  * If for example you have added a service whose instance name is **auth-service** via **glue plugin service node** then you will get a folder named **auth-service** inside your **services** folder, where your whole logic of service is written.
+
+  <br/>
+
+  
+  * Your directory stucture for the above example should be something like this:
+
+    <br/>
+
+    ```jsx
+      📦auth-service
+        ┣ 📂components
+        ┃ ┗ 📜function.yaml
+        ┣ 📂functions
+        ┃ ┣ 📂function
+        ┃ ┃ ┗ 📜handler.js
+        ┃ ┗ 📂health-check
+        ┃ ┃ ┗ 📜handler.js
+        ┣ 📂helpers
+        ┃ ┣ 📜loader.js
+        ┃ ┗ 📜replace-special-chars.js
+        ┣ 📜.env
+        ┣ 📜.env.example
+        ┣ 📜Dockerfile
+        ┣ 📜README.md
+        ┣ 📜package.json
+        ┣ 📜router.js
+        ┗ 📜server.js
+    ```
+  <br/>
+  <br/>
+  
+  * In order to start your service you need to run the following command:
+    
+    <br/>
+    
+    ```bash
+      $ node glue develop:up
+    ```
+    
+    <br/>
+
+    This command will start running the docker image of all the instances and plugin you have created. Here, in this case it will start running your **service instance** ypu have created, inside your **Backend-Engine** container.
+  
+  <br/>
+  
+  * In order to interact with your there is a file named **router.js** present in root directory of the service instance. If you open that **router.js** file, you will see a string value attached to a key named **path**, this is the string which you need to append after your nginx url(http://localhost:9090).
+  
+    For example we already have a service named **auth-service** then router.js value will be something like this:
+    
+      ```jsx
+      module.exports = () => [
+        {
+          "path": "/backend/authservice/(.*)",
+          "proxy": {
+            "instance": "authservice:3500",
+            "path": "/v1.0/invoke/authservice/method/$1"
+          }
+        }
+      ];
+
+      ```
+    
+    <br/>
+    
+    So in order to access your service instance for example **auth-service** its base url should be something like this,
+      
+      
+    **http://localhost:9090/backend/authservice**
+  
+  <br/>
+
+* ## Instructions to start development with serive-node plugin
+  
+  <br/>
+  
+  * Inside your **service instance directory** which you have created via **glue-plugin-service-node**, you will find a file named **server.js** which is an express app.
+
+  <br/>
+
+  * Whatever functions and graphql actions you have created via **glue-plugin-service-node** will be attached to this express app.
+
+  <br/>
+
+  * There is a folder named functions in root of you **service instance** directory, inside this folder you will find all the **functions** and **graphql actions** you have created for your service.
+
+  <br/>
+
+  * Inside every functions and graphql directory there is a file named handler.js, this is the file where you will write your logic.
+
+  <br/>
+
+  * Inside your action directory you will find a file named **action.graphql**, this is the file where you will write types for your action.
+
+  <br/>
+
+  * Below is an example of how you can write types for your **action.graphql** file:
+
+    ```js
+    type Mutation {
+      myFirstAction (input: actionInput!): actionResponse
+    }
+
+    input actionInput {
+      email: String!
+      password: String!
+    }
+
+    type actionResponse {
+      status: Boolean!
+      message: String!
+    }
+
+    ```
+
+  <br />
+
+  * Inside your action directory you will find a file named **action.setting**, this is the file where you can add settings for your actions like **action execution type** and **action role permissions**.
+
+  <br/>
+
+  * Below is an example of how you can configure settings in **action.setting** file:
+
+    ```
+    execution = "sync"
+    roles = "admin,staff"
+    ```

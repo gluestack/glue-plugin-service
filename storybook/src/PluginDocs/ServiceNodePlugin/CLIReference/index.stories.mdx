@@ -1,0 +1,128 @@
+---
+title: CLI Reference | Service Node
+description: CLI Reference | Service Node
+---
+
+<Meta title="Service Node Plugin Docs/CLI Reference" />
+
+# CLI Reference
+
+##
+
+<br/>
+
+
+
+
+* There is list of certain commands which are available in this plugin using which you can add **functions** and **graphql actions** in your service.
+
+<br/>
+
+
+<details>
+  <summary>
+    <strong> function:add</strong>
+  </summary>
+
+  <br/>
+
+  * This command will add a **function** in your service.
+
+    In order to add a function in your service you need to run the below command:
+
+    <br/>
+
+    ```bash
+    $ node glue function:add <function-name>
+    ```
+
+    <br/>
+
+    For example if you want to add a function named **hello** in any one of your service then you need to run the below command:
+
+    <br/>
+    
+    ```bash
+    $ node glue function:add hello
+    ```
+
+    <br/>
+
+  * After that it will ask you for selecting a service plugin, as shown below:
+
+    <br/>
+
+    <img src="assets/selectServiceForFunction.png"/> 
+
+    <br/>
+  
+
+  * After selecting a service plugin, it will ask you for selecting a service inside which you want to add your function, as shown below:
+    
+    <br/>
+
+    <img src="assets/selectServiceInstance.png"/> 
+
+    In above example there is already a service named **auth-service**.
+
+    <br/>
+
+  * After selecting a service instance, it will add function to the service which you have selected.
+
+    You can go and check inside **functions folder** of the **service instance** you have selected. There you will find your function folder.
+
+</details>
+
+<br/>
+
+<details>
+  <summary>
+    <strong> function:attach-action</strong>
+  </summary>
+
+  <br/>
+
+  * This command will help you in attaching **graphql actions** against the already created **functions**  to your **service**.
+
+    In order to attach **graphql actions** against the already created **functions**  to your **service** you need to run the below command:
+
+    <br/>
+
+    ```bash
+    $ node glue function:attach-action
+    ```
+
+    <br/>
+
+  * After that it will ask you for selecting a service plugin, as shown below:
+
+    <br/>
+
+    <img src="assets/seletcServiceForAction.png"/>
+
+    <br/>
+
+  * After selecting a service plugin, it will ask you for selecting a service instance inside which you want to attach your action, as shown below:
+
+    <br/>
+
+    <img src="assets/selectServiceInstanceForAction.png"/>
+
+    <br/>
+
+  * After selecting a service instance, it will ask you for selecting a function against which you want to attach an action, as shown below:
+
+    <br/>
+
+    <img src="assets/selectFunctionForAction.png"/>
+
+    <br/>
+
+  * After selecting the function, it will automaticaaly attach the graphql action against that function.
+
+    You can go and check inside **function folder** of the **service instance** you have selected. There you will find your action folder.
+
+</details>
+
+<br/>
+

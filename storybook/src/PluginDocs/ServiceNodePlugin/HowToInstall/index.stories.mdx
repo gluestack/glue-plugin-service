@@ -1,0 +1,71 @@
+---
+title: How To Install | Service Node
+description: How To Install | Service Node
+---
+
+<Meta title="Service Node Plugin Docs/How to Install" />
+
+# How to install
+
+
+
+<br/>
+
+* To start using **node service** in your application, you need to run the following command:
+
+  <br/>
+
+    ```bash
+    $ node glue service:add
+    ```
+
+  <br/>
+  <br/>
+
+* After running the above command, it will ask you for selecting a language for your **microservice**, and there you need to select **@gluestack/glue-plugin-service-node** as your language for the **microservice**.
+
+  <br/>
+
+
+* After this it will ask you for **instance-name** of your microservice, you can give the name of your instance whatever you want.
+
+  <br/>
+
+* After successfully providing the details it will automatically install **@gluestack/glue-plugin-service-node**.
+
+  <br/>
+
+* **For example**, if you want to add a microservice named **auth-service** then you need to follow the following steps:
+
+    First enter the following command to add a service:
+
+    ```bash
+    $ node glue service:add
+    ```
+
+    After running the above command, it will ask you for selecting a language for your **service**, as shown below:
+
+    <img src="/assets/selectService.png"/>
+
+    <br/>
+
+    After this it will ask you for **instance-name** of your service, as shown below:
+
+    <img src="/assets/serviceName.png"/>
+
+    In above image it is **auth-service**.
+
+    After providing these details it will automatically install **@gluestack/glue-plugin-service-node** as shown below:
+
+    <img src="/assets/serviceInstall.png"/>
+
+    <br/>
+
+  <br/>
+
+
+* If everything goes well and the plugin is installed successfully then you can go and see that inside **backend** folder there is folder named “**services**” and inside that **services** folder, there is a new folder which is named after your instance is created. 
+  
+  Overall directory path for the above example will be something like this:
+  
+  **backend/services/auth-service**
