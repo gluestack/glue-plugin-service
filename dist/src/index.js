@@ -47,6 +47,7 @@ var rewrite_file_1 = require("./helpers/rewrite-file");
 var replace_special_chars_1 = require("./helpers/replace-special-chars");
 var function_add_1 = require("./commands/function-add");
 var function_attach_action_1 = require("./commands/function-attach-action");
+var update_workspaces_1 = require("./helpers/update-workspaces");
 var GlueStackPlugin = (function () {
     function GlueStackPlugin(app, gluePluginStore) {
         this.type = "stateless";
@@ -81,7 +82,7 @@ var GlueStackPlugin = (function () {
     };
     GlueStackPlugin.prototype.runPostInstall = function (instanceName, target) {
         return __awaiter(this, void 0, void 0, function () {
-            var instance, routerFilePath;
+            var instance, routerFilePath, pluginPackage, rootPackage;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4, this.app.createPluginInstance(this, instanceName, this.getTemplateFolderPath(), target)];
@@ -96,7 +97,16 @@ var GlueStackPlugin = (function () {
                     case 3:
                         _a.sent();
                         _a.label = 4;
-                    case 4: return [2];
+                    case 4:
+                        pluginPackage = "".concat(instance.getInstallationPath(), "/package.json");
+                        return [4, (0, rewrite_file_1.reWriteFile)(pluginPackage, instanceName, 'INSTANCENAME')];
+                    case 5:
+                        _a.sent();
+                        rootPackage = "".concat(process.cwd(), "/package.json");
+                        return [4, (0, update_workspaces_1.updateWorkspaces)(rootPackage, instance.getInstallationPath())];
+                    case 6:
+                        _a.sent();
+                        return [2];
                 }
             });
         });
