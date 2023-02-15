@@ -39,11 +39,11 @@ exports.__esModule = true;
 exports.functionsAdd = void 0;
 var prompts = require("prompts");
 var services = require("@gluestack/framework/constants/services");
+var writeFile = require("@gluestack/helpers").writeFile;
+var createFolder = require("@gluestack/helpers").createFolder;
 var node_path_1 = require("node:path");
-var write_file_1 = require("../helpers/write-file");
-var create_folder_1 = require("../helpers/create-folder");
 var function_content_1 = require("../helpers/function-content");
-var replace_special_chars_1 = require("../helpers/replace-special-chars");
+var replace_route_name_1 = require("../helpers/replace-route-name");
 function functionsAdd(program, glueStackPlugin) {
     var _this = this;
     program
@@ -84,11 +84,11 @@ var writeAction = function (pluginInstance, functionName) { return __awaiter(voi
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                directory = (0, node_path_1.join)(pluginInstance.getInstallationPath(), 'functions', (0, replace_special_chars_1.replaceRouteName)(functionName));
-                return [4, (0, create_folder_1.createFolder)(directory)];
+                directory = (0, node_path_1.join)(pluginInstance.getInstallationPath(), 'functions', (0, replace_route_name_1.replaceRouteName)(functionName));
+                return [4, createFolder(directory)];
             case 1:
                 _a.sent();
-                return [4, (0, write_file_1.writeFile)("".concat(directory, "/handler.js"), function_content_1.functionContent)];
+                return [4, writeFile("".concat(directory, "/handler.js"), function_content_1.functionContent)];
             case 2:
                 _a.sent();
                 return [2];

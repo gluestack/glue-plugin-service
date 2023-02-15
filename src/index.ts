@@ -10,11 +10,12 @@ import IGlueStorePlugin from "@gluestack/framework/types/store/interface/IGluePl
 
 import { writeEnv } from "./helpers/write-env";
 import { reWriteFile } from "./helpers/rewrite-file";
-import { replaceSpecialChars } from "./helpers/replace-special-chars";
+const { removeSpecialChars } = require("@gluestack/helpers");
 
 import { functionsAdd } from "./commands/function-add";
 import { functionsAttachAction } from "./commands/function-attach-action";
-import { updateWorkspaces } from "./helpers/update-workspaces";
+const { Workspaces } = require("@gluestack/helpers");
+
 
 //Do not edit the name of this class
 export class GlueStackPlugin implements IPlugin, IManagesInstances, ILifeCycle {
@@ -75,7 +76,7 @@ export class GlueStackPlugin implements IPlugin, IManagesInstances, ILifeCycle {
       await writeEnv(instance);
 
       const routerFilePath = `${instance.getInstallationPath()}/router.js`;
-      await reWriteFile(routerFilePath, replaceSpecialChars(instanceName), 'services');
+      await reWriteFile(routerFilePath, removeSpecialChars(instanceName), 'services');
 
       // update package.json'S name index with the new instance name
       const pluginPackage = `${instance.getInstallationPath()}/package.json`;
@@ -83,7 +84,7 @@ export class GlueStackPlugin implements IPlugin, IManagesInstances, ILifeCycle {
 
       // update root package.json's workspaces with the new instance name
       const rootPackage = `${process.cwd()}/package.json`;
-      await updateWorkspaces(rootPackage, instance.getInstallationPath());
+      await Workspaces.append(rootPackage, instance.getInstallationPath());
     }
 
   }

@@ -39,12 +39,12 @@ exports.__esModule = true;
 exports.handler = exports.functionsAttachAction = void 0;
 var prompts = require("prompts");
 var services = require("@gluestack/framework/constants/services");
+var removeSpecialChars = require("@gluestack/helpers").removeSpecialChars;
+var getDirectories = require("@gluestack/helpers").getDirectories;
+var fileExists = require("@gluestack/helpers").fileExists;
 var node_path_1 = require("node:path");
 var rewrite_file_1 = require("../helpers/rewrite-file");
-var replace_special_chars_1 = require("../helpers/replace-special-chars");
 var copy_to_target_1 = require("../helpers/copy-to-target");
-var get_directories_1 = require("../helpers/get-directories");
-var file_exists_1 = require("../helpers/file-exists");
 var rename_directory_1 = require("../helpers/rename-directory");
 var functionsAttachAction = function (program, glueStackPlugin) {
     program
@@ -132,13 +132,13 @@ var writeAction = function (pluginInstance) { return __awaiter(void 0, void 0, v
         switch (_a.label) {
             case 0:
                 functionsPath = (0, node_path_1.join)(process.cwd(), pluginInstance.getInstallationPath(), 'functions');
-                return [4, (0, file_exists_1.fileExists)(functionsPath)];
+                return [4, fileExists(functionsPath)];
             case 1:
                 if (!(_a.sent())) {
                     console.log("No functions found in ".concat((0, node_path_1.relative)('.', functionsPath), ". Please add one and try again!"));
                     return [2];
                 }
-                return [4, (0, get_directories_1.getDirectories)(functionsPath)];
+                return [4, getDirectories(functionsPath)];
             case 2:
                 directories = _a.sent();
                 if (!directories.length) {
@@ -157,7 +157,7 @@ var writeAction = function (pluginInstance) { return __awaiter(void 0, void 0, v
                 _a.label = 5;
             case 5:
                 functionPath = (0, node_path_1.join)(functionsPath, functionName);
-                return [4, (0, file_exists_1.fileExists)(functionPath + '/handler.js')];
+                return [4, fileExists(functionPath + '/handler.js')];
             case 6:
                 if (!(_a.sent())) {
                     console.log("Missing \"handler.js\" file in \"".concat((0, node_path_1.relative)('.', functionPath), "\". Please add one and try again!"));
@@ -167,7 +167,7 @@ var writeAction = function (pluginInstance) { return __awaiter(void 0, void 0, v
             case 7:
                 _a.sent();
                 actionGQLfile = "".concat(functionPath, "/action.graphql");
-                return [4, (0, rewrite_file_1.reWriteFile)(actionGQLfile, (0, replace_special_chars_1.replaceSpecialChars)(functionName), 'actionName')];
+                return [4, (0, rewrite_file_1.reWriteFile)(actionGQLfile, removeSpecialChars(functionName), 'actionName')];
             case 8:
                 _a.sent();
                 return [2];

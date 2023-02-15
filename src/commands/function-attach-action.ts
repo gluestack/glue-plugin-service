@@ -1,16 +1,18 @@
 const prompts = require("prompts");
 const services = require("@gluestack/framework/constants/services");
 
+const { removeSpecialChars } = require("@gluestack/helpers");
+const { getDirectories } = require("@gluestack/helpers");
+const { fileExists } = require("@gluestack/helpers");
+
 import { GlueStackPlugin } from "..";
 import { PluginInstance } from "../PluginInstance";
 import IInstance from "@gluestack/framework/types/plugin/interface/IInstance";
 
 import { relative, join } from "node:path";
 import { reWriteFile } from "../helpers/rewrite-file";
-import { replaceSpecialChars } from "../helpers/replace-special-chars";
 import { copyToTarget } from "../helpers/copy-to-target";
-import { getDirectories } from "../helpers/get-directories";
-import { fileExists } from "../helpers/file-exists";
+
 import { renameDirectory } from "../helpers/rename-directory";
 
 export const functionsAttachAction = (program: any, glueStackPlugin: GlueStackPlugin) => {
@@ -113,7 +115,7 @@ const writeAction = async (pluginInstance: PluginInstance) => {
   );
 
   const actionGQLfile = `${functionPath}/action.graphql`;
-  await reWriteFile(actionGQLfile, replaceSpecialChars(functionName), 'actionName');
+  await reWriteFile(actionGQLfile, removeSpecialChars(functionName), 'actionName');
 };
 
 export async function handler(glueStackPlugin: GlueStackPlugin) {

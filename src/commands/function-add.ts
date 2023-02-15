@@ -1,15 +1,16 @@
 const prompts = require("prompts");
 const services = require("@gluestack/framework/constants/services");
+const { writeFile } = require("@gluestack/helpers");
+const { createFolder } = require("@gluestack/helpers");
 
 import { GlueStackPlugin } from "..";
 import { PluginInstance } from "../PluginInstance";
 import IInstance from "@gluestack/framework/types/plugin/interface/IInstance";
 
 import { join } from "node:path";
-import { writeFile } from "../helpers/write-file";
-import { createFolder } from "../helpers/create-folder";
+
 import { functionContent } from "../helpers/function-content";
-import { replaceRouteName } from "../helpers/replace-special-chars";
+import { replaceRouteName } from "../helpers/replace-route-name";
 
 export function functionsAdd(program: any, glueStackPlugin: GlueStackPlugin) {
   program
@@ -18,7 +19,7 @@ export function functionsAdd(program: any, glueStackPlugin: GlueStackPlugin) {
     .argument(
       '<function-name>',
       'name of the function to be added'
-		)
+    )
     .action(async (functionName: string) => handler(glueStackPlugin, functionName));
 }
 

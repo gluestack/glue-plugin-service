@@ -45,9 +45,9 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
 exports.__esModule = true;
 exports.PluginInstanceContainerController = void 0;
 var _a = require("@gluestack/helpers"), SpawnHelper = _a.SpawnHelper, DockerodeHelper = _a.DockerodeHelper;
+var fileExists = require("@gluestack/helpers").fileExists;
 var promises_1 = require("node:fs/promises");
 var node_path_1 = require("node:path");
-var file_exists_1 = require("./helpers/file-exists");
 var PluginInstanceContainerController = (function () {
     function PluginInstanceContainerController(app, callerInstance) {
         this.status = "down";
@@ -167,7 +167,7 @@ var PluginInstanceContainerController = (function () {
                     case 1:
                         path = _d.apply(void 0, _e.concat([_g.sent()]));
                         functionsPath = (0, node_path_1.join)(path, 'functions');
-                        return [4, (0, file_exists_1.fileExists)(functionsPath)];
+                        return [4, fileExists(functionsPath)];
                     case 2:
                         if (!(_g.sent())) {
                             return [2, routes];

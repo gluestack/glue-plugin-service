@@ -1,11 +1,11 @@
 const { SpawnHelper, DockerodeHelper } = require("@gluestack/helpers");
+const { fileExists } = require("@gluestack/helpers");
 
 import { PluginInstance } from "./PluginInstance";
 import IApp from "@gluestack/framework/types/app/interface/IApp";
 import IContainerController, { IRoutes } from "@gluestack/framework/types/plugin/interface/IContainerController";
 import { readdir } from 'node:fs/promises';
 import { join } from 'node:path'
-import { fileExists } from "./helpers/file-exists";
 import { Dirent } from "node:fs";
 
 export class PluginInstanceContainerController implements IContainerController {
