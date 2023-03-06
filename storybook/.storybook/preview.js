@@ -14,7 +14,7 @@ export const parameters = {
       method: 'alphabetical',
       order: [
         'Service Node Plugin',
-        ['Getting Started', 'Requirements', 'How to Install'],
+        ['Getting Started', 'Requirements', 'How to Install', 'CLI Reference'],
       ]
     },
   },

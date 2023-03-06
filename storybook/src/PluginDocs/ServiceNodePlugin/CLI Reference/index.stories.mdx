@@ -1,0 +1,35 @@
+---
+title: Getting started | Service Node
+description: Getting started | Service Node
+---
+
+import { Canvas, Meta, Story } from "@storybook/addon-docs";
+
+<Meta title="Service Node Plugin/CLI Reference" />
+
+# CLI Reference
+
+## Service-Node
+
+  * This command will add a function to your service with a basic **ExpressJS** handler.
+
+    <br/>
+
+    ```bash
+    $ node glue function:add <function-name>
+    ```
+
+    <br/>
+    
+
+  * This command will add a **graphql** action to your **function** with a basic **ExpressJS** handler.
+
+    <br/>
+
+    ```bash
+    $ node glue function:attach-action
+    ```
+
+    <br/>
+
+    After running this command, you will be prompted to select a service type. Choose the **"service-node"** option, and then select a service instance for adding a GraphQL action. Next, choose the **"authservice"** instance. Finally, you will be asked to select a function to add a **GraphQL** action.
