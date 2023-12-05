@@ -42,7 +42,7 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
     function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.PluginInstanceContainerController = void 0;
 var _a = require("@gluestack/helpers"), SpawnHelper = _a.SpawnHelper, DockerodeHelper = _a.DockerodeHelper;
 var fileExists = require("@gluestack/helpers").fileExists;
@@ -103,8 +103,7 @@ var PluginInstanceContainerController = (function () {
                             ports.push(port);
                             _this.callerInstance.callerPlugin.gluePluginStore.set("ports", ports);
                             return resolve(_this.portNumber);
-                        })
-                            .catch(function (e) {
+                        })["catch"](function (e) {
                             reject(e);
                         });
                     })];
@@ -221,7 +220,7 @@ var PluginInstanceContainerController = (function () {
                         return [3, 15];
                     case 10:
                         _g.trys.push([10, , 13, 14]);
-                        if (!(!_f && !_a && (_b = dirents_1.return))) return [3, 12];
+                        if (!(!_f && !_a && (_b = dirents_1["return"]))) return [3, 12];
                         return [4, _b.call(dirents_1)];
                     case 11:
                         _g.sent();

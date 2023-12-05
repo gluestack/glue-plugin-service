@@ -35,7 +35,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.functionsAdd = void 0;
 var prompts = require("prompts");
 var services = require("@gluestack/framework/constants/services");
@@ -64,14 +64,14 @@ var selectPluginName = function (services) { return __awaiter(void 0, void 0, vo
                     return {
                         title: service,
                         description: "Select a language for your service",
-                        value: service,
+                        value: service
                     };
                 });
                 return [4, prompts({
                         type: "select",
                         name: "value",
                         message: "Select a service plugin",
-                        choices: choices,
+                        choices: choices
                     })];
             case 1:
                 value = (_a.sent()).value;
@@ -104,14 +104,14 @@ var selectInstance = function (pluginInstances) { return __awaiter(void 0, void 
                     return {
                         title: instance.getName(),
                         description: "Select ".concat(instance.getName(), " instance"),
-                        value: instance,
+                        value: instance
                     };
                 });
                 return [4, prompts({
                         type: "select",
                         name: "value",
                         message: "Select an instance",
-                        choices: choices,
+                        choices: choices
                     })];
             case 1:
                 value = (_a.sent()).value;

@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 exports.replaceRouteName = void 0;
 var replaceRouteName = function (str) {
     return str.replace(/[^a-zA-Z0-9\-_]/g, '').toLowerCase();
